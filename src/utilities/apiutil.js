@@ -3,16 +3,15 @@ const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
 
 export const createUser = async (username, password) => {
     try {
-        const response = await fetch(
-            `${BASE_URL}/users/register`, {
+        const response = await fetch(`${BASE_URL}/users/register`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 user: {
-                    username: `${username}`,
-                    password: `${password}`
+                    username: username,
+                    password: password
                 }
             })
         });
@@ -33,8 +32,8 @@ export const logInUser = async (username, password) => {
           },
           body: JSON.stringify({
             user: {
-              username: `${username}`,
-              password: `${password}`
+              username: username,
+              password: password
             }
           })
         });
@@ -61,15 +60,16 @@ export const myData = async (token) => {
       console.error(err);
     }
   }
+  console.log(myData)
 
 export const fetchPosts = async () => {
     try {
       const response = await fetch(`${BASE_URL}/posts`)
       const result = await response.json();
       console.log(result);
-      return result
+      return result.data.posts
     } catch (err) {
-      console.error(err);
+      console.error("Failed to load all posts", err);
     }
   }
 
